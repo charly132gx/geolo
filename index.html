@@ -8,42 +8,38 @@
 	<script type="text/javascript" src="js/jquery-2.2.0.min.js" ></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js" ></script>
 <script type="text/javascript">
-opciones ={maximunage:500000, enableHighAccuracy:True,timeout:5000};
-
-
-
-		$("#btnObtCoords").tap(function (){
-
-			if(navigator.geolocation){
-				navigator.geolocation.getCurrentPosition(exito, falla, opciones);
-			function exito(ubicacion){
-				$("#txtLatitud").val(ubicacion,coords.Latitude);
-				$("#txtLontitud").val(ubicacion,coords.Longtitude);
-			}
-function falla(error(){
-	navigator.notification("errir al obtener las cordenadas:" +error(););
+opciones={maximumage:500000, enableHighAccuracy:true,timeout:5000};
+document.addEventListener("deviceready", function (){
+$("#btnObtCoords").tap(function (){
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(exito, falla, opciones);
+function exito(ubicacion){
+$("#txtLatitud").val(ubicacion.coords.latitude);
+$("#txtLongitud").val(ubicacion.coords.longitude);
+}
+function falla(error){
+navigator.notification("Error al obtener las coordenadas: "+error);
 }
 }else{
-	navigator.notification{"Su dispositivo no tiene soporte de geolocation"}
+navigator.notification("Su dispositivo no tiene soporte de geolocalizacion");
 }
-
-		});
-	},false);
+});
+}, false);
 </script>
 </head>
-
 <body>
-<div data-role="page" id="principal" data-theme="b">
-	<div data-role="header">
-    	<p>Mi Ubicacion</p>
-    </div>
-    <div data-role="content">
-			<input type="text" id="txtLatitud" placeholder="Latitud"/>
-			<input type="text" id="txtLatitud" placeholder="Latitud"/>
-			<input type="button" id="btnObtCoords" value="Obtener cordenadas"/>
-    </div>
-    <div data-role="footer" data-position="fixed">
-    	<p>Pie de aplicación</p>
-    </div>
+<div data-role="page" id="principal">
+<div data-role="header">
+<h1>Mi ubicacion</h1>
+</div>
+<div data-role="content">
+<input type="text" id="txtLatitud" placeholder="Latitud" />
+<input type="text" id="txtLongitud" placeholder="Longitud" />
+<input type="button" id="btnObtCoords" value="Obtener cordenadas" />
+</div>
+<div data-role="footer">
+<p>pie de la aplicacion</p>
+</div>
+</div>
 </body>
 </html>
